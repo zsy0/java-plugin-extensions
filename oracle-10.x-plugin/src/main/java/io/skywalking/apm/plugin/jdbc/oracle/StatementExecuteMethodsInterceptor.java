@@ -70,16 +70,16 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		} else {
 			try {
 				System.out.println(
-						"[connId=" + ((StatementEnhanceInfos) objInst).getConnectionInfo().getComponent().getId() + "]"
-								+ ((StatementEnhanceInfos) objInst).getSql() + " "
-								+ ((StatementEnhanceInfos) objInst).getStatementName());
-				for (int i = 0; i < ((StatementEnhanceInfos) objInst).getParameters().length; ++i) {
-					System.out.println(((StatementEnhanceInfos) objInst).getParameters()[i]);
+						"[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]"
+								+ cacheObject.getSql() + " "
+								+cacheObject.getStatementName());
+				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
+					System.out.println(cacheObject.getParameters()[i]);
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-		}
+//		}
 		return ret;
 	}
 

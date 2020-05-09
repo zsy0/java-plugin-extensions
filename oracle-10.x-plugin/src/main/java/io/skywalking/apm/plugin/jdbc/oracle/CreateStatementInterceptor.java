@@ -37,19 +37,18 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 		if (ret instanceof EnhancedInstance) {
 			((EnhancedInstance) ret).setSkyWalkingDynamicField(
 					new StatementEnhanceInfos((ConnectionInfo) objInst.getSkyWalkingDynamicField(), "", "Statement"));
-		}
-		System.out.println("33333333333333333333333");
-		try {
-			if (((ConnectionInfo) objInst).getComponent() == null) {
-				System.out.println("((ConnectionInfo) objInst).getComponent()==null");
-			} else {
-				System.out.println("[connId=" + ((ConnectionInfo) objInst).getComponent().getId() + "]"
-						+ ((ConnectionInfo) objInst).getDatabaseName() + " "
-						+ ((ConnectionInfo) objInst).getDatabasePeer() + " "
-						+ ((ConnectionInfo) objInst).getComponent().getName());
+			System.out.println("33333333333333333333333");
+			ConnectionInfo connInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
+			try {
+				if (connInfo.getComponent() == null) {
+					System.out.println("connInfo==null");
+				} else {
+					System.out.println("[connId=" + connInfo.getComponent().getId() + "]" + connInfo.getDatabaseName()
+							+ " " + connInfo.getDatabasePeer() + " " + connInfo.getComponent().getName());
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return ret;
 	}
