@@ -66,13 +66,18 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		if (cacheObject == null) {
 			System.out.println("cacheObject==null");
 		} else if (cacheObject.getConnectionInfo() == null) {
-			System.out.println(cacheObject.getConnectionInfo() == null);
+			System.out.println("cacheObject.getConnectionInfo() == null");
 		} else {
-			System.out.println("[connId=" + ((StatementEnhanceInfos) objInst).getConnectionInfo().getComponent().getId()
-					+ "]" + ((StatementEnhanceInfos) objInst).getSql() + " "
-					+ ((StatementEnhanceInfos) objInst).getStatementName());
-			for(int i=0;i<((StatementEnhanceInfos) objInst).getParameters().length;++i) {
-				System.out.println(((StatementEnhanceInfos) objInst).getParameters()[i]);
+			try {
+				System.out.println(
+						"[connId=" + ((StatementEnhanceInfos) objInst).getConnectionInfo().getComponent().getId() + "]"
+								+ ((StatementEnhanceInfos) objInst).getSql() + " "
+								+ ((StatementEnhanceInfos) objInst).getStatementName());
+				for (int i = 0; i < ((StatementEnhanceInfos) objInst).getParameters().length; ++i) {
+					System.out.println(((StatementEnhanceInfos) objInst).getParameters()[i]);
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
 		}
 		return ret;
