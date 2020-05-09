@@ -37,20 +37,20 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 		if (ret instanceof EnhancedInstance) {
 			((EnhancedInstance) ret).setSkyWalkingDynamicField(
 					new StatementEnhanceInfos((ConnectionInfo) objInst.getSkyWalkingDynamicField(), "", "Statement"));
-			System.out.println("33333333333333333333333");
-			ConnectionInfo connInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-			try {
-				if (connInfo.getComponent() == null) {
-					System.out.println("connInfo==null");
-				} else {
-					System.out.println("[connId=" + connInfo.getComponent().getId() + "]");
-					System.out.println("databaseName:"+connInfo.getDatabaseName());
-					System.out.println("databasePeer:"+connInfo.getDatabasePeer());
-					System.out.println("componentName:"+connInfo.getComponent().getName());
-				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+//			System.out.println("33333333333333333333333");
+//			ConnectionInfo connInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
+//			try {
+//				if (connInfo.getComponent() == null) {
+//					System.out.println("connInfo==null");
+//				} else {
+//					System.out.println("[connId=" + connInfo.getComponent().getId() + "]");
+//					System.out.println("databaseName:"+connInfo.getDatabaseName());
+//					System.out.println("databasePeer:"+connInfo.getDatabasePeer());
+//					System.out.println("componentName:"+connInfo.getComponent().getName());
+//				}
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//			}
 		}
 		return ret;
 	}

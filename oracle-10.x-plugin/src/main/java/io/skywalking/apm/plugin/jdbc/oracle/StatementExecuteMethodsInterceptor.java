@@ -55,6 +55,29 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 
 			SpanLayer.asDB(span);
 		}
+		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+		if (cacheObject == null) {
+			System.out.println("cacheObject==null");
+		} else if (cacheObject.getConnectionInfo() == null) {
+			System.out.println("cacheObject.getConnectionInfo() == null");
+		} else {
+			try {
+				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
+				System.out.println("sql:"+cacheObject.getSql());
+				System.out.println("statementName:"+cacheObject.getStatementName());
+				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
+					System.out.println(cacheObject.getParameters()[i]);
+				}
+				if(result instanceof ResultSet) {
+					System.out.println("hahaha");
+				}else {
+					System.out.println(result.getClass().getName());
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		
 	}
 
 	@Override
@@ -79,6 +102,8 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 				}
 				if(ret instanceof ResultSet) {
 					System.out.println("hahaha");
+				}else {
+					System.out.println(ret.getClass().getName());
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
