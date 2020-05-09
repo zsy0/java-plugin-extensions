@@ -37,7 +37,7 @@ public class CreatePreparedStatementInterceptor implements InstanceMethodsAround
         if (ret instanceof EnhancedInstance) {
             ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), (String)allArguments[0], "PreparedStatement"));
         }
-        System.out.println("zsy");
+        System.out.println("22222222222222222222222222");
         return ret;
     }
 

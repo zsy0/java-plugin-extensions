@@ -37,6 +37,7 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
         if (ret instanceof EnhancedInstance) {
             ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), "", "Statement"));
         }
+        System.out.println("33333333333333333333333");
         return ret;
     }
 

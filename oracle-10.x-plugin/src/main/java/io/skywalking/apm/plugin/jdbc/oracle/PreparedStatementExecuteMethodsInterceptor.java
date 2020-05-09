@@ -60,6 +60,7 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
         if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
             ContextManager.stopSpan();
         }
+        System.out.println("44444444444444444444444444");
 
         return ret;
     }
