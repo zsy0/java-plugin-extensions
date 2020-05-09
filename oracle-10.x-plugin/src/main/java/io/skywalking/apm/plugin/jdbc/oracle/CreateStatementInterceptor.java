@@ -26,23 +26,28 @@ import org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
 import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
 public class CreateStatementInterceptor implements InstanceMethodsAroundInterceptor {
-    @Override
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInterceptResult result) throws Throwable {
-    }
+	@Override
+	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+			MethodInterceptResult result) throws Throwable {
+	}
 
-    @Override
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        Object ret) throws Throwable {
-        if (ret instanceof EnhancedInstance) {
-            ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), "", "Statement"));
-        }
-        System.out.println("33333333333333333333333");
-        return ret;
-    }
+	@Override
+	public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+			Object ret) throws Throwable {
+		if (ret instanceof EnhancedInstance) {
+			((EnhancedInstance) ret).setSkyWalkingDynamicField(
+					new StatementEnhanceInfos((ConnectionInfo) objInst.getSkyWalkingDynamicField(), "", "Statement"));
+		}
+		System.out.println("33333333333333333333333");
+		System.out.println("[connId=" + ((ConnectionInfo) objInst).getComponent().getId() + "]"
+				+ ((ConnectionInfo) objInst).getDatabaseName() + " " + ((ConnectionInfo) objInst).getDatabasePeer()
+				+ " " + ((ConnectionInfo) objInst).getComponent().getName());
+		return ret;
+	}
 
-    @Override public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, Throwable t) {
+	@Override
+	public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, Throwable t) {
 
-    }
+	}
 }

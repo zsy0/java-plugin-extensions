@@ -30,50 +30,64 @@ import org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
 import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
 public class StatementExecuteMethodsInterceptor implements InstanceMethodsAroundInterceptor {
-    @Override
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
-        MethodInterceptResult result) throws Throwable {
-        StatementEnhanceInfos cacheObject = (StatementEnhanceInfos)objInst.getSkyWalkingDynamicField();
-        if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
-            ConnectionInfo connectInfo = cacheObject.getConnectionInfo();
+	@Override
+	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+			MethodInterceptResult result) throws Throwable {
+		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
+		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
+			ConnectionInfo connectInfo = cacheObject.getConnectionInfo();
 
-            AbstractSpan span = ContextManager.createExitSpan(buildOperationName(connectInfo, method.getName(), cacheObject.getStatementName()), connectInfo.getDatabasePeer());
-            Tags.DB_TYPE.set(span, "sql");
-            Tags.DB_INSTANCE.set(span, connectInfo.getDatabaseName());
+			AbstractSpan span = ContextManager.createExitSpan(
+					buildOperationName(connectInfo, method.getName(), cacheObject.getStatementName()),
+					connectInfo.getDatabasePeer());
+			Tags.DB_TYPE.set(span, "sql");
+			Tags.DB_INSTANCE.set(span, connectInfo.getDatabaseName());
 
-            String sql = "";
-            if (allArguments.length > 0) {
-                sql = (String)allArguments[0];
-            }
+			String sql = "";
+			if (allArguments.length > 0) {
+				sql = (String) allArguments[0];
+			}
 
-            Tags.DB_STATEMENT.set(span, sql);
-            span.setComponent(connectInfo.getComponent());
+			Tags.DB_STATEMENT.set(span, sql);
+			span.setComponent(connectInfo.getComponent());
 
-            SpanLayer.asDB(span);
-        }
-    }
+			SpanLayer.asDB(span);
+		}
+	}
 
-    @Override
-    public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes,
-        Object ret) throws Throwable {
-        StatementEnhanceInfos cacheObject = (StatementEnhanceInfos)objInst.getSkyWalkingDynamicField();
-        if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
-            ContextManager.stopSpan();
-        }
-        System.out.println("55555555555555555555555555");
-        return ret;
-    }
+	@Override
+	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, Object ret) throws Throwable {
+		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
+		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
+			ContextManager.stopSpan();
+		}
+		System.out.println("55555555555555555555555555");
+		if (cacheObject == null) {
+			System.out.println("cacheObject==null");
+		} else if (cacheObject.getConnectionInfo() == null) {
+			System.out.println(cacheObject.getConnectionInfo() == null);
+		} else {
+			System.out.println("[connId=" + ((StatementEnhanceInfos) objInst).getConnectionInfo().getComponent().getId()
+					+ "]" + ((StatementEnhanceInfos) objInst).getSql() + " "
+					+ ((StatementEnhanceInfos) objInst).getStatementName());
+			for(int i=0;i<((StatementEnhanceInfos) objInst).getParameters().length;++i) {
+				System.out.println(((StatementEnhanceInfos) objInst).getParameters()[i]);
+			}
+		}
+		return ret;
+	}
 
-    @Override public final void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, Throwable t) {
-        StatementEnhanceInfos cacheObject = (StatementEnhanceInfos)objInst.getSkyWalkingDynamicField();
-        if (cacheObject.getConnectionInfo() != null) {
-            ContextManager.activeSpan().errorOccurred().log(t);
-        }
-    }
+	@Override
+	public final void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, Throwable t) {
+		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
+		if (cacheObject.getConnectionInfo() != null) {
+			ContextManager.activeSpan().errorOccurred().log(t);
+		}
+	}
 
-    private String buildOperationName(ConnectionInfo connectionInfo, String methodName, String statementName) {
-        return connectionInfo.getDBType() + "/JDBI/" + statementName + "/" + methodName;
-    }
+	private String buildOperationName(ConnectionInfo connectionInfo, String methodName, String statementName) {
+		return connectionInfo.getDBType() + "/JDBI/" + statementName + "/" + methodName;
+	}
 }
