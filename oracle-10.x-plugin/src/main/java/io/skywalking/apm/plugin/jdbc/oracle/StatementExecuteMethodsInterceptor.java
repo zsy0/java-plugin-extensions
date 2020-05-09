@@ -80,10 +80,10 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 							}
 							s = s + "]";
 						}
-						rs.beforeFirst();
+//						rs.beforeFirst();
 					}
+					System.out.println(s);
 				}
-				System.out.println(ret.getClass().getName());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
