@@ -19,6 +19,8 @@
 package io.skywalking.apm.plugin.jdbc.oracle;
 
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
+
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.context.tag.Tags;
 import org.apache.skywalking.apm.agent.core.context.trace.AbstractSpan;
@@ -69,12 +71,14 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 			System.out.println("cacheObject.getConnectionInfo() == null");
 		} else {
 			try {
-				System.out.println(
-						"[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]"
-								+ cacheObject.getSql() + " "
-								+cacheObject.getStatementName());
+				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
+				System.out.println("sql:"+cacheObject.getSql());
+				System.out.println("statementName:"+cacheObject.getStatementName());
 				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
 					System.out.println(cacheObject.getParameters()[i]);
+				}
+				if(ret instanceof ResultSet) {
+					System.out.println("hahaha");
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

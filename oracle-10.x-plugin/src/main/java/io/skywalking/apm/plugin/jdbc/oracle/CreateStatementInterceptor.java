@@ -43,8 +43,10 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 				if (connInfo.getComponent() == null) {
 					System.out.println("connInfo==null");
 				} else {
-					System.out.println("[connId=" + connInfo.getComponent().getId() + "]" + connInfo.getDatabaseName()
-							+ " " + connInfo.getDatabasePeer() + " " + connInfo.getComponent().getName());
+					System.out.println("[connId=" + connInfo.getComponent().getId() + "]");
+					System.out.println("databaseName:"+connInfo.getDatabaseName());
+					System.out.println("databasePeer:"+connInfo.getDatabasePeer());
+					System.out.println("componentName:"+connInfo.getComponent().getName());
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
