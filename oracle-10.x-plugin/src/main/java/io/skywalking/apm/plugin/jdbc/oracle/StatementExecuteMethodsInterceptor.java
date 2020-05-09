@@ -79,7 +79,7 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-//		}
+		}
 		return ret;
 	}
 
