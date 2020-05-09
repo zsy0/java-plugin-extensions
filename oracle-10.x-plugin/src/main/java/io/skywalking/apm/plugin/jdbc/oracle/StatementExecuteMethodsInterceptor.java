@@ -55,25 +55,6 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 
 			SpanLayer.asDB(span);
 		}
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-		if (cacheObject == null) {
-			System.out.println("cacheObject==null");
-		} else if (cacheObject.getConnectionInfo() == null) {
-			System.out.println("cacheObject.getConnectionInfo() == null");
-		} else {
-			try {
-				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
-				System.out.println("sql:" + (String) allArguments[0]);
-				System.out.println("statementName:" + cacheObject.getStatementName());
-//				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
-//					System.out.println(cacheObject.getParameters()[i]);
-//				}
-				System.out.println(result.getClass().getName());
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-
 	}
 
 	@Override
@@ -82,13 +63,6 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
-		}
-		System.out.println("55555555555555555555555555");
-		if (cacheObject == null) {
-			System.out.println("cacheObject==null");
-		} else if (cacheObject.getConnectionInfo() == null) {
-			System.out.println("cacheObject.getConnectionInfo() == null");
-		} else {
 			try {
 				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
 				System.out.println("sql:" + (String) allArguments[0]);
