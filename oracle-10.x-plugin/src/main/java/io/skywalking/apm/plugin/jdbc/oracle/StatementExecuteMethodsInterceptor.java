@@ -66,10 +66,23 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 			try {
 				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
 				System.out.println("sql:" + (String) allArguments[0]);
-				System.out.println("statementName:" + cacheObject.getStatementName());
-//				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
-//					System.out.println(cacheObject.getParameters()[i]);
-//				}
+				if (ret.getClass().getName().equals("oracle.jdbc.driver.OracleResultSetImpl")) {
+					ResultSet rs = (ResultSet) ret;
+					String s="";
+					if (rs != null) {
+						while (rs.next()) {
+							s = s + "[res=";
+							for (int i = 1; i < rs.getMetaData().getColumnCount() + 1; ++i) {
+								s = s + rs.getString(i);
+								if (i != rs.getMetaData().getColumnCount()) {
+									s = s + ",";
+								}
+							}
+							s = s + "]";
+						}
+						rs.beforeFirst();
+					}
+				}
 				System.out.println(ret.getClass().getName());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

@@ -18,16 +18,17 @@
 
 package io.skywalking.apm.plugin.jdbc.oracle.define;
 
-import net.bytebuddy.description.method.MethodDescription;
-import net.bytebuddy.matcher.ElementMatcher;
+import static io.skywalking.apm.plugin.jdbc.oracle.Constants.PREPARED_STATEMENT_INTERCEPT_CLASS;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.MultiClassNameMatch;
 
-import static io.skywalking.apm.plugin.jdbc.oracle.Constants.PREPARED_STATEMENT_INTERCEPT_CLASS;
-import static net.bytebuddy.matcher.ElementMatchers.named;
+import net.bytebuddy.description.method.MethodDescription;
+import net.bytebuddy.matcher.ElementMatcher;
 
 public class OraclePrepareStatementInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
 
