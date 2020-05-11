@@ -42,7 +42,10 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 		System.out.println(objInst.getClass().getName()+" "+objInst.toString());
 		System.out.println(method.getName());
 		System.out.println(ret.getClass().getName()+" "+ret.toString());
-		System.out.println(ret.getClass().getDeclaredField("realRsetType").get(ret));
+		try {
+		System.out.println(ret.getClass().getDeclaredField("realRsetType").get(ret));}catch (Exception e) {
+			e.printStackTrace();
+		}
 		for(int i=0;i<allArguments.length;++i) {
 			System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
 		}
