@@ -32,6 +32,7 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
 			MethodInterceptResult result) throws Throwable {
 		allArguments[0]=ResultSet.TYPE_SCROLL_INSENSITIVE;
+		allArguments[1]=ResultSet.CONCUR_READ_ONLY;
 	}
 
 	@Override
