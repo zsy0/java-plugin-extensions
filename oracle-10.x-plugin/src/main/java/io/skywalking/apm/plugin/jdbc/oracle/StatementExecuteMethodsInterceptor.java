@@ -63,31 +63,30 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
-			try {
-				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
-				System.out.println("sql:" + (String) allArguments[0]);
-				System.out.println(ret.getClass().getName());
-				if (ret instanceof ResultSet) {
-					ResultSet rs = ((ResultSet) ret);
-					String s="";
-					if (rs != null) {
-						while (rs.next()) {
-							s = s + "[res=";
-							for (int i = 1; i < rs.getMetaData().getColumnCount() + 1; ++i) {
-								s = s + rs.getString(i);
-								if (i != rs.getMetaData().getColumnCount()) {
-									s = s + ",";
-								}
+//			try {
+			String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
+					+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + (String) allArguments[0]
+					+ "]";
+			if (ret instanceof ResultSet) {
+				ResultSet rs = ((ResultSet) ret);
+				if (rs != null) {
+					while (rs.next()) {
+						s = s + "[res=";
+						for (int i = 1; i < rs.getMetaData().getColumnCount() + 1; ++i) {
+							s = s + rs.getString(i);
+							if (i != rs.getMetaData().getColumnCount()) {
+								s = s + ",";
 							}
-							s = s + "]";
 						}
-						rs.beforeFirst();
+						s = s + "]";
 					}
-					System.out.println(s);
+					rs.beforeFirst();
 				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
 			}
+			System.out.println(s);
+//			} catch (Exception e) {
+//				System.out.println(e.getMessage());
+//			}
 		}
 		return ret;
 	}

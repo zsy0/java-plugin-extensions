@@ -68,7 +68,7 @@ public class ConnectionInstrumentation extends ClassInstanceMethodsEnhancePlugin
                 }
 
                 @Override public boolean isOverrideArgs() {
-                    return false;
+                    return true;
                 }
             },
             new InstanceMethodsInterceptPoint() {

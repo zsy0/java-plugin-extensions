@@ -19,6 +19,7 @@
 package io.skywalking.apm.plugin.jdbc.oracle;
 
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
 
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
@@ -30,6 +31,9 @@ public class CreatePreparedStatementInterceptor implements InstanceMethodsAround
     @Override
     public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
         MethodInterceptResult result) throws Throwable {
+    	allArguments[1]=ResultSet.TYPE_SCROLL_INSENSITIVE;
+		allArguments[2]=ResultSet.CONCUR_READ_ONLY;
+    	
     }
 
     @Override
@@ -38,7 +42,6 @@ public class CreatePreparedStatementInterceptor implements InstanceMethodsAround
         if (ret instanceof EnhancedInstance) {
             ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), (String)allArguments[0], "PreparedStatement"));
         }
-        System.out.println("22222222222222222222222222");
         return ret;
     }
 
