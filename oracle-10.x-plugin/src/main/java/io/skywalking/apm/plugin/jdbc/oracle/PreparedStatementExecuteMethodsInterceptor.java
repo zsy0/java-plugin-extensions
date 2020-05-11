@@ -61,36 +61,40 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
-			System.out.println("啦啦啦");
-			for(int i=0;i<allArguments.length;++i) {
-				System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
-			}
-			System.out.println("看看cacheObject");
-			System.out.println("sql:"+cacheObject.getSql());
-			for(int i=0;i<cacheObject.getParameters().length;++i) {
-				System.out.println("参数："+cacheObject.getParameters()[i]);
-			}
-			
-			String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-					+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + (String) allArguments[0]
-					+ "]";
-			if (ret instanceof ResultSet) {
-				ResultSet rs = ((ResultSet) ret);
-				if (rs != null) {
-					while (rs.next()) {
-						s = s + "[res=";
-						for (int i = 1; i < rs.getMetaData().getColumnCount() + 1; ++i) {
-							s = s + rs.getString(i);
-							if (i != rs.getMetaData().getColumnCount()) {
-								s = s + ",";
-							}
-						}
-						s = s + "]";
-					}
-					rs.beforeFirst();
+			try {
+				System.out.println("啦啦啦");
+				for (int i = 0; i < allArguments.length; ++i) {
+					System.out.println(argumentsTypes[i].getName() + " " + allArguments[i]);
 				}
+				System.out.println("看看cacheObject");
+				System.out.println("sql:" + cacheObject.getSql());
+				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
+					System.out.println("参数：" + cacheObject.getParameters()[i]);
+				}
+
+				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
+						+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + cacheObject.getSql()
+						+ "]";
+				if (ret instanceof ResultSet) {
+					ResultSet rs = ((ResultSet) ret);
+					if (rs != null) {
+						while (rs.next()) {
+							s = s + "[res=";
+							for (int i = 1; i < rs.getMetaData().getColumnCount() + 1; ++i) {
+								s = s + rs.getString(i);
+								if (i != rs.getMetaData().getColumnCount()) {
+									s = s + ",";
+								}
+							}
+							s = s + "]";
+						}
+						rs.beforeFirst();
+					}
+				}
+				System.out.println(s);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			System.out.println(s);
 
 		}
 		return ret;
