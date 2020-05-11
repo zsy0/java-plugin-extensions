@@ -30,12 +30,8 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 	@Override
 	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
 			MethodInterceptResult result) throws Throwable {
-		if (result._ret() != null) {
-			System.out.println(result._ret().getClass());
-		}else {
-			System.out.println("空的空的");
-		}
-
+		allArguments[0]=2;
+		allArguments[1]=2;
 	}
 
 	@Override
