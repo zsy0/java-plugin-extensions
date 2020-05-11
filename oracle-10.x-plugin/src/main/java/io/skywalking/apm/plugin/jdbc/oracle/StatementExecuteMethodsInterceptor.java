@@ -66,7 +66,8 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 			try {
 				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
 				System.out.println("sql:" + (String) allArguments[0]);
-				if (ret.getClass().getName().equals("oracle.jdbc.driver.OracleResultSetImpl")) {
+				System.out.println(ret.getClass().getName());
+				if (ret instanceof ResultSet) {
 					ResultSet rs = ((ResultSet) ret);
 					String s="";
 					if (rs != null) {
@@ -80,7 +81,7 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 							}
 							s = s + "]";
 						}
-//						rs.beforeFirst();
+						rs.beforeFirst();
 					}
 					System.out.println(s);
 				}
