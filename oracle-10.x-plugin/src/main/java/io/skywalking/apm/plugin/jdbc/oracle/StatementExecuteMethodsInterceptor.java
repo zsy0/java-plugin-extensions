@@ -67,7 +67,7 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 				System.out.println("[connId=" + cacheObject.getConnectionInfo().getComponent().getId() + "]");
 				System.out.println("sql:" + (String) allArguments[0]);
 				if (ret.getClass().getName().equals("oracle.jdbc.driver.OracleResultSetImpl")) {
-					ResultSet rs = (ResultSet) ret;
+					ResultSet rs = ((ResultSet) ret);
 					String s="";
 					if (rs != null) {
 						while (rs.next()) {
