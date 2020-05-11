@@ -14,6 +14,7 @@ import net.bytebuddy.matcher.ElementMatcher;
  *
  */
 public class OraclePreparedStatementSetterInstrumentation extends OraclePrepareStatementInstrumentation {
+	
 	@Override
 	public final InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
 		return new InstanceMethodsInterceptPoint[] { 

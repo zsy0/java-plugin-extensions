@@ -28,6 +28,7 @@ public final class Constants {
 
 	public static final String PREPARED_STATEMENT_INTERCEPT_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementExecuteMethodsInterceptor";
 
+//	public static final String MY_SETTER__METHODS_INTERCEPTOR_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementSetterInterceptor";
 	public static final String PREPARED_STATEMENT_SETTER_METHODS_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.JDBCPreparedStatementSetterInterceptor";
 //	public static final String PREPARED_STATEMENT_IGNORABLE_SETTER_METHODS_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.JDBCPreparedStatementIgnorableSetterInterceptor";
 }
