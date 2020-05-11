@@ -51,6 +51,8 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 			Tags.DB_STATEMENT.set(span, cacheObject.getSql());
 			span.setComponent(connectInfo.getComponent());
 			SpanLayer.asDB(span);
+			
+			System.out.println("bbbbbefore里面："+(cacheObject.getParameters()==null));
 		}
 	}
 
@@ -63,9 +65,8 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 			ContextManager.stopSpan();
 			try {
 				System.out.println("啦啦啦");
-				for (int i = 0; i < allArguments.length; ++i) {
-					System.out.println(argumentsTypes[i].getName() + " " + allArguments[i]);
-				}
+				System.out.println("objInst的类型："+objInst.getClass().getName());
+				System.out.println("方法名："+method.getName());
 				System.out.println("看看cacheObject");
 				System.out.println("sql:" + cacheObject.getSql());
 //				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
