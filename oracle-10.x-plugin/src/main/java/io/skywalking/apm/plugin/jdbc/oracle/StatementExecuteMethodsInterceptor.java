@@ -28,6 +28,7 @@ import org.apache.skywalking.apm.agent.core.context.trace.SpanLayer;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
+import org.apache.skywalking.apm.plugin.jdbc.PreparedStatementParameterBuilder;
 import org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
 import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
@@ -67,6 +68,9 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 			String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 					+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + (String) allArguments[0]
 					+ "]";
+			String para = new PreparedStatementParameterBuilder().setParameters(cacheObject.getParameters())
+					.setMaxIndex(cacheObject.getMaxIndex()).build();
+			s += "[para=" + para + "]";
 			if (ret instanceof ResultSet) {
 				ResultSet rs = ((ResultSet) ret);
 				if (rs != null) {
