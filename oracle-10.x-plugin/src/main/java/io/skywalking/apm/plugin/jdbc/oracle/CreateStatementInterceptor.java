@@ -30,6 +30,12 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 	@Override
 	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
 			MethodInterceptResult result) throws Throwable {
+		if (result._ret() != null) {
+			System.out.println(result._ret().getClass());
+		}else {
+			System.out.println("空的空的");
+		}
+
 	}
 
 	@Override
@@ -39,17 +45,17 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 			((EnhancedInstance) ret).setSkyWalkingDynamicField(
 					new StatementEnhanceInfos((ConnectionInfo) objInst.getSkyWalkingDynamicField(), "", "Statement"));
 		}
-		System.out.println(objInst.getClass().getName()+" "+objInst.toString());
-		System.out.println(method.getName());
-		System.out.println(ret.getClass().getName()+" "+ret.toString());
-		try {
-		System.out.println(ret.getClass().getDeclaredField("realRsetType").get(ret));}catch (Exception e) {
-			e.printStackTrace();
-		}
-		for(int i=0;i<allArguments.length;++i) {
-			System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
-		}
-		
+//		System.out.println(objInst.getClass().getName()+" "+objInst.toString());
+//		System.out.println(method.getName());
+//		System.out.println(ret.getClass().getName()+" "+ret.toString());
+//		try {
+//		System.out.println(ret.getClass().getDeclaredField("realRsetType").get(ret));}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		for(int i=0;i<allArguments.length;++i) {
+//			System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
+//		}
+
 		return ret;
 	}
 
