@@ -68,9 +68,9 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 				}
 				System.out.println("看看cacheObject");
 				System.out.println("sql:" + cacheObject.getSql());
-				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
-					System.out.println("参数：" + cacheObject.getParameters()[i]);
-				}
+//				for (int i = 0; i < cacheObject.getParameters().length; ++i) {
+//					System.out.println("参数：" + cacheObject.getParameters()[i]);
+//				}
 
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 						+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + cacheObject.getSql()
