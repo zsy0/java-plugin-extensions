@@ -19,6 +19,7 @@
 package io.skywalking.apm.plugin.jdbc.oracle;
 
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
 
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
@@ -30,8 +31,7 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 	@Override
 	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
 			MethodInterceptResult result) throws Throwable {
-		allArguments[0]=2;
-		allArguments[1]=2;
+		allArguments[0]=ResultSet.TYPE_SCROLL_INSENSITIVE;
 	}
 
 	@Override
