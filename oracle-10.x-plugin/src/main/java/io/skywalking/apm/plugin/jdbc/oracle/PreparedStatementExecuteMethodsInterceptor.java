@@ -51,6 +51,11 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 			Tags.DB_STATEMENT.set(span, cacheObject.getSql());
 			span.setComponent(connectInfo.getComponent());
 			SpanLayer.asDB(span);
+			
+			for (int i = 0; i < cacheObject.getParameters().length; ++i) {
+				System.out.println("参数：" + cacheObject.getParameters()[i]);
+			}
+			
 		}
 	}
 
