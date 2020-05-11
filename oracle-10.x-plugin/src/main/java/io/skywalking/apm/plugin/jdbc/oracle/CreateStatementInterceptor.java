@@ -30,6 +30,7 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 	@Override
 	public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
 			MethodInterceptResult result) throws Throwable {
+		allArguments[0]=1;
 	}
 
 	@Override
@@ -39,11 +40,11 @@ public class CreateStatementInterceptor implements InstanceMethodsAroundIntercep
 			((EnhancedInstance) ret).setSkyWalkingDynamicField(
 					new StatementEnhanceInfos((ConnectionInfo) objInst.getSkyWalkingDynamicField(), "", "Statement"));
 		}
-		System.out.println(objInst.getClass().getName()+" "+objInst.toString());
-		System.out.println(method.getName()+" "+ret.toString());
-		for(int i=0;i<allArguments.length;++i) {
-			System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
-		}
+//		System.out.println(objInst.getClass().getName()+" "+objInst.toString());
+//		System.out.println(method.getName()+" "+ret.toString());
+//		for(int i=0;i<allArguments.length;++i) {
+//			System.out.println(argumentsTypes[i].getName()+" "+allArguments[i]);
+//		}
 		return ret;
 	}
 
