@@ -17,19 +17,8 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 			Object ret) throws Throwable {
 
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
-
-		System.out.println("啦啦啦啦看我看我");
-		System.out.println(cacheObject==null);
-		System.out.println(objInst.getClass().getName());
-		System.out.println(method.getName());
-		if(cacheObject != null) {
-			System.out.println("连接信息"+(cacheObject.getConnectionInfo()==null));
-		}
 		
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
-			System.out.println("这里这里这里");
-			ContextManager.stopSpan();
-			System.out.println("那里那里哪里哪里");
 			try {
 				if(method.getName().equals("addBatch")) {
 					cacheObject.addParaBatch();
@@ -51,7 +40,6 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		}
 		return ret;
 	}
