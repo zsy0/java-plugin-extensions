@@ -20,6 +20,8 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
+			System.out.println("啦啦啦啦看我看我");
+			System.out.println(method.getName());
 			try {
 				if(method.getName().equals("addBatch")) {
 					cacheObject.addParaBatch();
