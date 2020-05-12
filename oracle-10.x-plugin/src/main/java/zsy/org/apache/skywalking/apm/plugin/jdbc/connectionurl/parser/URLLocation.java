@@ -16,23 +16,22 @@
  *
  */
 
+package zsy.org.apache.skywalking.apm.plugin.jdbc.connectionurl.parser;
 
-package io.skywalking.apm.plugin.jdbc.oracle.define;
+public class URLLocation {
+    private final int startIndex;
+    private final int endIndex;
 
-import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
+    public URLLocation(int startIndex, int endIndex) {
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
+    }
 
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.AbstractDriverInstrumentation;
+    public int startIndex() {
+        return startIndex;
+    }
 
-/**
- * {@link DriverInstrumentation} presents that skywalking intercepts {@link oracle.jdbc.driver.OracleDriver}.
- *
- * @author zhangxin
- */
-public class DriverInstrumentation extends AbstractDriverInstrumentation {
-
-    @Override
-    protected ClassMatch enhanceClass() {
-        return NameMatch.byName("oracle.jdbc.driver.OracleDriver");
+    public int endIndex() {
+        return endIndex;
     }
 }

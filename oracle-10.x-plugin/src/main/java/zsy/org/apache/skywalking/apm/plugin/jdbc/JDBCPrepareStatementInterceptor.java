@@ -16,18 +16,23 @@
  *
  */
 
-package io.skywalking.apm.plugin.jdbc.oracle;
+package zsy.org.apache.skywalking.apm.plugin.jdbc;
 
 import java.lang.reflect.Method;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
 
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
 import zsy.org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
+import zsy.org.apache.skywalking.apm.plugin.jdbc.trace.SWPreparedStatement;
 
-public class CreateCallableInterceptor implements InstanceMethodsAroundInterceptor {
+/**
+ * {@link JDBCPrepareStatementInterceptor} return {@link SWPreparedStatement} instance that wrapper the real
+ * PreparedStatement instance when the client call <code>prepareStatement</code> method.
+ */
+public class JDBCPrepareStatementInterceptor implements InstanceMethodsAroundInterceptor {
     @Override
     public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
         MethodInterceptResult result) throws Throwable {
@@ -37,14 +42,14 @@ public class CreateCallableInterceptor implements InstanceMethodsAroundIntercept
     @Override
     public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
         Object ret) throws Throwable {
-        if (ret instanceof EnhancedInstance) {
-            ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), (String)allArguments[0], "CallableStatement"));
+        if (objInst.getSkyWalkingDynamicField() == null) {
+            return ret;
         }
-        System.out.println("111111111111111111111");
-        return ret;
+        return new SWPreparedStatement((Connection) objInst, (PreparedStatement) ret, (ConnectionInfo) objInst.getSkyWalkingDynamicField(), (String) allArguments[0]);
     }
 
-    @Override public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+    @Override
+    public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
         Class<?>[] argumentsTypes, Throwable t) {
 
     }

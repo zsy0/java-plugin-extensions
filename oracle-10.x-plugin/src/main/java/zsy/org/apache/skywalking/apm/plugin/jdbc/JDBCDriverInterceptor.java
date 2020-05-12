@@ -16,18 +16,22 @@
  *
  */
 
-package io.skywalking.apm.plugin.jdbc.oracle;
+package zsy.org.apache.skywalking.apm.plugin.jdbc;
 
 import java.lang.reflect.Method;
-
+import java.sql.Connection;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
 
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
-import zsy.org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
+import zsy.org.apache.skywalking.apm.plugin.jdbc.connectionurl.parser.URLParser;
 
-public class CreateCallableInterceptor implements InstanceMethodsAroundInterceptor {
+/**
+ * {@link JDBCDriverInterceptor} set <code>ConnectionInfo</code> to {@link Connection} object when {@link
+ * java.sql.Driver} to create connection, instead of the  {@link Connection} instance.
+ */
+public class JDBCDriverInterceptor implements InstanceMethodsAroundInterceptor {
+
     @Override
     public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
         MethodInterceptResult result) throws Throwable {
@@ -37,14 +41,15 @@ public class CreateCallableInterceptor implements InstanceMethodsAroundIntercept
     @Override
     public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
         Object ret) throws Throwable {
-        if (ret instanceof EnhancedInstance) {
-            ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), (String)allArguments[0], "CallableStatement"));
+        if (ret != null && ret instanceof EnhancedInstance) {
+            ((EnhancedInstance) ret).setSkyWalkingDynamicField(URLParser.parser((String) allArguments[0]));
         }
-        System.out.println("111111111111111111111");
+
         return ret;
     }
 
-    @Override public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+    @Override
+    public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
         Class<?>[] argumentsTypes, Throwable t) {
 
     }

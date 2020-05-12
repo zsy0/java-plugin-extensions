@@ -16,23 +16,15 @@
  *
  */
 
+package zsy.org.apache.skywalking.apm.plugin.jdbc.connectionurl.parser;
 
-package io.skywalking.apm.plugin.jdbc.oracle.define;
+import zsy.org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
-import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
-
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.AbstractDriverInstrumentation;
-
-/**
- * {@link DriverInstrumentation} presents that skywalking intercepts {@link oracle.jdbc.driver.OracleDriver}.
- *
- * @author zhangxin
- */
-public class DriverInstrumentation extends AbstractDriverInstrumentation {
-
-    @Override
-    protected ClassMatch enhanceClass() {
-        return NameMatch.byName("oracle.jdbc.driver.OracleDriver");
-    }
+public interface ConnectionURLParser {
+    /**
+     * {@link ConnectionURLParser} parses database name and the database host(s) from connection url.
+     *
+     * @return connection info.
+     */
+    ConnectionInfo parse();
 }
