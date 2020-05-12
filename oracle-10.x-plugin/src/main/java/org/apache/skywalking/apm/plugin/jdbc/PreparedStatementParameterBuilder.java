@@ -23,6 +23,9 @@ public class PreparedStatementParameterBuilder {
     private Object[] parameters;
     private Integer maxIndex;
     private int maxLength = 0;
+    static {
+    	System.out.println("是是是是是是是");
+    }
 
     public PreparedStatementParameterBuilder setParameters(Object[] parameters) {
         this.parameters = parameters;
