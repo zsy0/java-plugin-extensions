@@ -46,12 +46,14 @@ public class ConnectionServiceMethodInterceptor implements InstanceMethodsAround
 			Tags.DB_STATEMENT.set(span, "");
 			span.setComponent(connectInfo.getComponent());
 			SpanLayer.asDB(span);
+			System.out.println("前面前面前面");
 		}
 	}
 
 	@Override
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
+		System.out.println("后面后面后面");
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
 		if (connectInfo != null) {
 			ContextManager.stopSpan();
