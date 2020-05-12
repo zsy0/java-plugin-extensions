@@ -23,9 +23,8 @@ import java.lang.reflect.Method;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
-
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
-import zsy.org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
+import org.apache.skywalking.apm.plugin.jdbc.define.StatementEnhanceInfos;
+import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
 public class CreateCallableInterceptor implements InstanceMethodsAroundInterceptor {
     @Override

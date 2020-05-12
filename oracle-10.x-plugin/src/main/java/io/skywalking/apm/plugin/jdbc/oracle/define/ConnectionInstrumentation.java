@@ -26,10 +26,10 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsIn
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.MultiClassNameMatch;
+import org.apache.skywalking.apm.plugin.jdbc.define.Constants;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
-import zsy.org.apache.skywalking.apm.plugin.jdbc.define.Constants;
 
 /**
  * {@link ConnectionInstrumentation} define that the oracle plugin intercept the following methods that the class which

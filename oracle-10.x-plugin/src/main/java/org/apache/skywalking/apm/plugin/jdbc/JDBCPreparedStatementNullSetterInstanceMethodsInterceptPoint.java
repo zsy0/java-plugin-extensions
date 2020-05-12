@@ -16,22 +16,28 @@
  *
  */
 
+package org.apache.skywalking.apm.plugin.jdbc;
 
-package io.skywalking.apm.plugin.jdbc.oracle.define;
+import net.bytebuddy.description.method.MethodDescription;
+import net.bytebuddy.matcher.ElementMatcher;
+import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
+import org.apache.skywalking.apm.plugin.jdbc.define.Constants;
 
-import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
-import org.apache.skywalking.apm.plugin.jdbc.define.AbstractDriverInstrumentation;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 
-/**
- * {@link DriverInstrumentation} presents that skywalking intercepts {@link oracle.jdbc.driver.OracleDriver}.
- *
- * @author zhangxin
- */
-public class DriverInstrumentation extends AbstractDriverInstrumentation {
+public final class JDBCPreparedStatementNullSetterInstanceMethodsInterceptPoint implements InstanceMethodsInterceptPoint {
+    @Override
+    public ElementMatcher<MethodDescription> getMethodsMatcher() {
+        return named("setNull");
+    }
 
     @Override
-    protected ClassMatch enhanceClass() {
-        return NameMatch.byName("oracle.jdbc.driver.OracleDriver");
+    public String getMethodsInterceptor() {
+        return Constants.PREPARED_STATEMENT_NULL_SETTER_METHODS_INTERCEPTOR;
+    }
+
+    @Override
+    public boolean isOverrideArgs() {
+        return false;
     }
 }
