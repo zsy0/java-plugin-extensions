@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Constants {
+	static {
+		System.out.println("再试试试试");
+	}
     public static final String CREATE_STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.JDBCStatementInterceptor";
 
     public static final String PREPARE_STATEMENT_INTERCEPT_CLASS = "org.apache.skywalking.apm.plugin.jdbc.JDBCPrepareStatementInterceptor";
