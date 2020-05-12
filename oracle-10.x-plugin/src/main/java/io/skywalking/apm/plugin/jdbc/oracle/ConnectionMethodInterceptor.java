@@ -11,6 +11,8 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceM
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
 import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
+import io.skywalking.apm.plugin.jdbc.oracle.define.ConnectionInstrumentation;
+
 public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterceptor {
 
 	@Override
@@ -32,10 +34,9 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-		if (connectInfo != null && allArguments.length != 0) {
-			System.out.println("args:"+allArguments[0]+" "+argumentsTypes[0].getName());
-			Exception e = new Exception();
-			e.printStackTrace();
+		if (connectInfo != null && allArguments.length == 0 && objInst instanceof ConnectionInstrumentation.T4C_CONNECTION_CLASS) {
+//			Exception e = new Exception();
+//			e.printStackTrace();
 			ContextManager.stopSpan();
 			if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
