@@ -34,6 +34,8 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
 		if (connectInfo != null && allArguments.length != 0) {
 			System.out.println("args:"+allArguments[0]+" "+argumentsTypes[0].getName());
+			Exception e = new Exception();
+			e.printStackTrace();
 			ContextManager.stopSpan();
 			if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
