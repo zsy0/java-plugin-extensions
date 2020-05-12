@@ -34,6 +34,10 @@ import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
  */
 public class ConnectionServiceMethodInterceptor implements InstanceMethodsAroundInterceptor {
 
+	static {
+		System.out.println("拦截器拦截器拦截器");
+	}
+	
 	@Override
 	public final void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable {
