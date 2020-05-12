@@ -25,6 +25,7 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 			Tags.DB_INSTANCE.set(span, connectInfo.getDatabaseName());
 			Tags.DB_STATEMENT.set(span, "");
 			span.setComponent(connectInfo.getComponent());
+			System.out.println("最后试试最后试试最后试试最后试试最后试试");
 			SpanLayer.asDB(span);
 		}
 	}
@@ -33,10 +34,10 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-		System.out.println("objInst:"+objInst.getClass().getName()+" "+objInst.toString());
-		System.out.println("allArguments:"+allArguments.length);
-		System.out.println("ret:"+(ret==null));
-		System.out.println("connectInfo"+connectInfo.toString()+" "+connectInfo.getComponent().getName());
+//		System.out.println("objInst:"+objInst.getClass().getName()+" "+objInst.toString());
+//		System.out.println("allArguments:"+allArguments.length);
+//		System.out.println("ret:"+(ret==null));
+//		System.out.println("connectInfo"+connectInfo.toString()+" "+connectInfo.getComponent().getName());
 		if (connectInfo != null) {
 			ContextManager.stopSpan();
 			if (method.getName().equals("commit") || method.getName().equals("rollback")) {
