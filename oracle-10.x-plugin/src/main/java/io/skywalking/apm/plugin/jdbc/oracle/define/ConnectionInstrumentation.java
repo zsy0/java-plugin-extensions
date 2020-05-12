@@ -49,6 +49,7 @@ public class ConnectionInstrumentation extends ClassInstanceMethodsEnhancePlugin
     public static final String CALLABLE_INTERCEPT_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.CreateCallableInterceptor";
     public static final String CREATE_STATEMENT_INTERCEPT_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.CreateStatementInterceptor";
     public static final String T4C_CONNECTION_CLASS = "oracle.jdbc.driver.T4CConnection";
+    public static final String COMMIT_ROLLBACK_INTERCEPT_CLASS="io.skywalking.apm.plugin.jdbc.oracle.ConnectionMethodInterceptor";
 
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
@@ -103,7 +104,7 @@ public class ConnectionInstrumentation extends ClassInstanceMethodsEnhancePlugin
                 }
 
                 @Override public String getMethodsInterceptor() {
-                    return Constants.SERVICE_METHOD_INTERCEPT_CLASS;
+                    return COMMIT_ROLLBACK_INTERCEPT_CLASS;
                 }
 
                 @Override public boolean isOverrideArgs() {
