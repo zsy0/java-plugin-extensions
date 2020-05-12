@@ -55,10 +55,14 @@ public class ConnectionServiceMethodInterceptor implements InstanceMethodsAround
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
 		if (connectInfo != null) {
 			ContextManager.stopSpan();
+			System.out.println(method.getName());
+			try {
 			if (method.getName().equals("rollback")||method.getName().equals("commit")) {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 						+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
 				System.out.println(s);
+			}}catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return ret;
