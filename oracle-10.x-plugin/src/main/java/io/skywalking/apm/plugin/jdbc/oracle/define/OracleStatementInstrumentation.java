@@ -53,7 +53,8 @@ public class OracleStatementInstrumentation extends ClassInstanceMethodsEnhanceP
                                 .or(named("executeLargeUpdate"))
                                 .or(named("executeBatchInternal"))
                                 .or(named("executeUpdateInternal"))
-                                .or(named("executeQuery"));
+                                .or(named("executeQuery"))
+                                .or(named("addBatch"));
                     }
 
                     @Override

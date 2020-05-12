@@ -64,7 +64,6 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
-//			try {
 			String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 					+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + (String) allArguments[0]
 					+ "]";
@@ -85,9 +84,6 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 				}
 			}
 			System.out.println(s);
-//			} catch (Exception e) {
-//				System.out.println(e.getMessage());
-//			}
 		}
 		return ret;
 	}

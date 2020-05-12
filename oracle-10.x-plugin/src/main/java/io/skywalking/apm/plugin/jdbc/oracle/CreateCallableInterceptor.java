@@ -39,7 +39,6 @@ public class CreateCallableInterceptor implements InstanceMethodsAroundIntercept
         if (ret instanceof EnhancedInstance) {
             ((EnhancedInstance)ret).setSkyWalkingDynamicField(new StatementEnhanceInfos((ConnectionInfo)objInst.getSkyWalkingDynamicField(), (String)allArguments[0], "CallableStatement"));
         }
-        System.out.println("111111111111111111111");
         return ret;
     }
 
