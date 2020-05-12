@@ -18,9 +18,9 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 
+		System.out.println("啦啦啦啦看我看我");
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
-			System.out.println("啦啦啦啦看我看我");
 			System.out.println(method.getName());
 			try {
 				if(method.getName().equals("addBatch")) {
