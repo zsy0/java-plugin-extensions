@@ -29,40 +29,45 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInt
 import org.apache.skywalking.apm.plugin.jdbc.trace.ConnectionInfo;
 
 /**
- * {@link ConnectionServiceMethodInterceptor} create an exit span when the following methods execute: 1. close 2.
- * rollback 3. releaseSavepoint 4. commit
+ * {@link ConnectionServiceMethodInterceptor} create an exit span when the
+ * following methods execute: 1. close 2. rollback 3. releaseSavepoint 4. commit
  */
 public class ConnectionServiceMethodInterceptor implements InstanceMethodsAroundInterceptor {
 
-    @Override
-    public final void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable {
-        ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-        if (connectInfo != null) {
-            AbstractSpan span = ContextManager.createExitSpan(connectInfo.getDBType() + "/JDBI/Connection/" + method.getName(), connectInfo
-                .getDatabasePeer());
-            Tags.DB_TYPE.set(span, "sql");
-            Tags.DB_INSTANCE.set(span, connectInfo.getDatabaseName());
-            Tags.DB_STATEMENT.set(span, "");
-            span.setComponent(connectInfo.getComponent());
-            SpanLayer.asDB(span);
-        }
-    }
+	@Override
+	public final void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, MethodInterceptResult result) throws Throwable {
+		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
+		if (connectInfo != null) {
+			AbstractSpan span = ContextManager.createExitSpan(
+					connectInfo.getDBType() + "/JDBI/Connection/" + method.getName(), connectInfo.getDatabasePeer());
+			Tags.DB_TYPE.set(span, "sql");
+			Tags.DB_INSTANCE.set(span, connectInfo.getDatabaseName());
+			Tags.DB_STATEMENT.set(span, "");
+			span.setComponent(connectInfo.getComponent());
+			SpanLayer.asDB(span);
+		}
+	}
 
-    @Override
-    public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, Object ret) throws Throwable {
-        ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-        if (connectInfo != null) {
-            ContextManager.stopSpan();
-        }
-        return ret;
-    }
+	@Override
+	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, Object ret) throws Throwable {
+		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
+		if (connectInfo != null) {
+			ContextManager.stopSpan();
+			if (method.getName().equals("rollback")||method.getName().equals("commit")) {
+				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
+						+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
+				System.out.println(s);
+			}
+		}
+		return ret;
+	}
 
-    @Override
-    public final void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
-        Class<?>[] argumentsTypes, Throwable t) {
-        ContextManager.activeSpan().errorOccurred().log(t);
-    }
+	@Override
+	public final void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+			Class<?>[] argumentsTypes, Throwable t) {
+		ContextManager.activeSpan().errorOccurred().log(t);
+	}
 
 }
