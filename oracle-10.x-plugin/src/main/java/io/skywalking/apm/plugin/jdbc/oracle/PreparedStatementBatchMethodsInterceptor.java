@@ -34,6 +34,7 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 						s += "[para=" + para + "]";
 					}
 //					System.out.println(s);
+					System.out.println("PreparedStatementBatchMethodsInterceptor");
 					Constants.logger.info(s);
 					System.out.println("Constants.logger:"+Constants.logger);
 					
