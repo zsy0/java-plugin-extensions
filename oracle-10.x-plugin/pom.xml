@@ -29,7 +29,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ojdbc14.version>10.2.0.4.0</ojdbc14.version>
-		<log4j.version>1.2.17</log4j.version>
+		<log4j.version>1.7.25</log4j.version>
 	</properties>
 
 	<dependencies>
