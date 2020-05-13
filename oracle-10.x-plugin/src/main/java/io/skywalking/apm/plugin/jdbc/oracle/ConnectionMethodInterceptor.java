@@ -39,7 +39,7 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 //			Exception e = new Exception();
 //			e.printStackTrace();
 			ContextManager.stopSpan();
-			System.out.println(method.toString());
+			System.out.println(method.hashCode());
 			if (allArguments.length == 0) {
 				if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
