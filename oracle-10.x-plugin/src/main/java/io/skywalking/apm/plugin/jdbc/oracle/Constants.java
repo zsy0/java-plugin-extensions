@@ -41,9 +41,7 @@ public final class Constants {
 	static {
 		try {
 			System.out.println("log4j初始化");
-			URL fileURL = Constants.class.getClassLoader().getResource("oracleLog4j.properties");
-			System.out.println(fileURL == null);
-			PropertyConfigurator.configure(fileURL.getFile());
+			PropertyConfigurator.configure(Constants.class.getClassLoader().getResourceAsStream("oracleLog4j.properties"));
 			System.out.println("初始化完毕");
 		} catch (Exception e) {
 			e.printStackTrace();
