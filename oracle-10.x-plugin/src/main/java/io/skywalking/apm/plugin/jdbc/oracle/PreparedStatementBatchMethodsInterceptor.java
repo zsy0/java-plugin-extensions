@@ -33,11 +33,7 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 								.setMaxIndex(allMaxIndexes.get(i)).build();
 						s += "[para=" + para + "]";
 					}
-//					System.out.println(s);
-					System.out.println("Constants.logger"+Constants.PREPARED_STATEMENT_INTERCEPT_CLASS);
-					System.out.println("Constants.logger"+Constants.logger.toString());
 					Constants.logger.info(s);
-					System.out.println("Constants.logger");
 					
 				}
 				
