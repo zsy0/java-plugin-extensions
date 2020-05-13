@@ -67,7 +67,7 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ContextManager.stopSpan();
 			String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-					+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + (String) allArguments[0]
+					+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + (String) allArguments[0]
 					+ "]";
 			if (ret instanceof ResultSet) {
 				ResultSet rs = ((ResultSet) ret);

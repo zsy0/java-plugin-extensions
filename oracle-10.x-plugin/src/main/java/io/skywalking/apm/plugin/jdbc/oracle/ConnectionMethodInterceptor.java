@@ -43,7 +43,7 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 					if (ste[i].getClassName().contains("PhysicalConnection")) {
 						if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 							String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-									+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
+									+ connectInfo.getConnId() + "]" + "[sql=" + method.getName() + "]";
 							System.out.println(s);
 						}
 						break;
