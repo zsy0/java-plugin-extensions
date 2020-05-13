@@ -39,12 +39,6 @@ public final class Constants {
 
 	public static final Logger logger = Logger.getLogger(Constants.class);
 	static {
-		try {
-			System.out.println("log4j初始化");
-			PropertyConfigurator.configure(Constants.class.getClassLoader().getResourceAsStream("oracleLog4j.properties"));
-			System.out.println("初始化完毕");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		PropertyConfigurator.configure(Constants.class.getClassLoader().getResourceAsStream("oracleLog4j.properties"));
 	}
 }
