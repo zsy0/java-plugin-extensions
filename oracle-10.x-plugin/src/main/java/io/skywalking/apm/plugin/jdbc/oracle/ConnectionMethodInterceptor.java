@@ -34,12 +34,14 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-		System.out.println(objInst.getClass().getName());
 		if (connectInfo != null) {
 //			Exception e = new Exception();
 //			e.printStackTrace();
 			ContextManager.stopSpan();
-			System.out.println(method.hashCode());
+			System.out.println(method.getModifiers());
+			System.out.println(method.isBridge());
+			System.out.println(method.isDefault());
+			System.out.println(method.toGenericString());
 			if (allArguments.length == 0) {
 				if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
