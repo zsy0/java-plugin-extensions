@@ -35,14 +35,13 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
 		if (connectInfo != null) {
-//			Exception e = new Exception();
-//			e.printStackTrace();
 			ContextManager.stopSpan();
-			System.out.println(method.getModifiers());
-			System.out.println(method.isBridge());
-			System.out.println(method.isDefault());
-			System.out.println(method.toGenericString());
 			if (allArguments.length == 0) {
+				Exception e = new Exception();
+				StackTraceElement[] ste = e.getStackTrace();
+				for(int i=0;i<ste.length;++i) {
+					System.out.println(ste[i].toString());
+				}
 				if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 							+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
