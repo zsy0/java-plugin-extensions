@@ -17,6 +17,7 @@
  */
 
 package io.skywalking.apm.plugin.jdbc.oracle;
+
 import java.net.URL;
 
 import org.apache.log4j.Logger;
@@ -35,12 +36,16 @@ public final class Constants {
 	public static final String PREPARED_STATEMENT_SETTER_METHODS_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.JDBCPreparedStatementSetterInterceptor";
 
 	public static final String PREPARED_STATEMENT_BATCH_METHODS_INTERCEPTOR = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementBatchMethodsInterceptor";
-	
-	public static final Logger logger = Logger.getLogger(Constants.class); 
+
+	public static final Logger logger = Logger.getLogger(Constants.class);
 	static {
-		System.out.println("log4j初始化");
-		URL fileURL=Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties"); 
-		PropertyConfigurator.configure(fileURL.getFile());
-		System.out.println("初始化完毕");
+		try {
+			System.out.println("log4j初始化");
+			URL fileURL = Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties");
+			PropertyConfigurator.configure(fileURL.getFile());
+			System.out.println("初始化完毕");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
