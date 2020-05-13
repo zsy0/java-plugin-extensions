@@ -82,7 +82,8 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 					rs.beforeFirst();
 				}
 			}
-			System.out.println(s);
+//			System.out.println(s);
+			Constants.logger.info(s);
 		}
 		return ret;
 	}

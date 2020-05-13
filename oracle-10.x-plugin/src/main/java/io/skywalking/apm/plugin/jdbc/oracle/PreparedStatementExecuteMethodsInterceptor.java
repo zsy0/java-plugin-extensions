@@ -84,7 +84,8 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 						rs.beforeFirst();
 					}
 				}
-				System.out.println(s);
+//				System.out.println(s);
+				Constants.logger.info(s);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -17,7 +17,10 @@
  */
 
 package io.skywalking.apm.plugin.jdbc.oracle;
+import java.net.URL;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 /**
  * Constants variables
  *
@@ -31,4 +34,11 @@ public final class Constants {
 	public static final String PREPARED_STATEMENT_SETTER_METHODS_INTERCEPTOR = "org.apache.skywalking.apm.plugin.jdbc.JDBCPreparedStatementSetterInterceptor";
 
 	public static final String PREPARED_STATEMENT_BATCH_METHODS_INTERCEPTOR = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementBatchMethodsInterceptor";
+	
+	public static Logger logger = Logger.getLogger(Constants.class); 
+	static {
+		URL fileURL=this.getClass().getResource("src/main/resource/log4j.properties"); 
+		PropertyConfigurator.configure(fileURL.getFile());
+		
+	}
 }

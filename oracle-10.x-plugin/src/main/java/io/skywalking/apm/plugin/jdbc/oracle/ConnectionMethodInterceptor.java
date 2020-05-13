@@ -44,7 +44,8 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 						if (method.getName().equals("commit") || method.getName().equals("rollback")) {
 							String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 									+ connectInfo.getConnId() + "]" + "[sql=" + method.getName() + "]";
-							System.out.println(s);
+//							System.out.println(s);
+							Constants.logger.info(s);
 						}
 						break;
 					}else if(ste[i].getClassName().contains("T4CConnection")) {
