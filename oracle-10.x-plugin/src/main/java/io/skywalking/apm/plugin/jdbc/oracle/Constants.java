@@ -27,7 +27,7 @@ import org.apache.log4j.PropertyConfigurator;
  *
  * @author zhang xin
  */
-public class Constants {
+public final class Constants {
 	public static final String STATEMENT_INTERCEPT_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.StatementExecuteMethodsInterceptor";
 
 	public static final String PREPARED_STATEMENT_INTERCEPT_CLASS = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementExecuteMethodsInterceptor";
