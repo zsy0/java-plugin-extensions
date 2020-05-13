@@ -39,14 +39,17 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 			if (allArguments.length == 0) {
 				Exception e = new Exception();
 				StackTraceElement[] ste = e.getStackTrace();
-				for(int i=0;i<ste.length;++i) {
-					System.out.println(ste[i].toString());
+				for (int i = 0; i < ste.length; ++i) {
+					if (ste[i].getClassName().contains("PhysicalConnection")) {
+						if (method.getName().equals("commit") || method.getName().equals("rollback")) {
+							String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
+									+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
+							System.out.println(s);
+						}
+						break;
+					}
 				}
-				if (method.getName().equals("commit") || method.getName().equals("rollback")) {
-					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-							+ connectInfo.getComponent().getId() + "]" + "[sql=" + method.getName() + "]";
-					System.out.println(s);
-				}
+
 			}
 		}
 		return ret;
