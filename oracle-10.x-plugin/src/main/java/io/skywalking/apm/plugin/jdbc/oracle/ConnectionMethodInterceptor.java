@@ -47,6 +47,8 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 							System.out.println(s);
 						}
 						break;
+					}else if(ste[i].getClassName().contains("T4CConnection")) {
+						break;
 					}
 				}
 

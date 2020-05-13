@@ -61,7 +61,6 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
-			ContextManager.stopSpan();
 			try {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 						+ cacheObject.getConnectionInfo().getComponent().getId() + "]" + "[sql=" + cacheObject.getSql()
@@ -89,6 +88,7 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			ContextManager.stopSpan();
 
 		}
 		return ret;
