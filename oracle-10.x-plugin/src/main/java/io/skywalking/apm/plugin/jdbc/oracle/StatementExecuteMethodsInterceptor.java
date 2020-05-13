@@ -39,9 +39,6 @@ public class StatementExecuteMethodsInterceptor implements InstanceMethodsAround
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ConnectionInfo connectInfo = cacheObject.getConnectionInfo();
 			
-			System.out.println(connectInfo);
-			System.out.println(connectInfo.getComponent());
-			
 			AbstractSpan span = ContextManager.createExitSpan(
 					buildOperationName(connectInfo, method.getName(), cacheObject.getStatementName()),
 					connectInfo.getDatabasePeer());
