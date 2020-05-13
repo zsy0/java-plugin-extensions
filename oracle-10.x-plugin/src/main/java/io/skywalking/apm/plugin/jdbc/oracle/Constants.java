@@ -38,8 +38,9 @@ public final class Constants {
 	
 	public static Logger logger = Logger.getLogger(Constants.class); 
 	static {
+		System.out.println("log4j初始化");
 		URL fileURL=Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties"); 
 		PropertyConfigurator.configure(fileURL.getFile());
-		
+		System.out.println("初始化完毕");
 	}
 }
