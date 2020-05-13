@@ -36,7 +36,7 @@ public final class Constants {
 
 	public static final String PREPARED_STATEMENT_BATCH_METHODS_INTERCEPTOR = "io.skywalking.apm.plugin.jdbc.oracle.PreparedStatementBatchMethodsInterceptor";
 	
-	public static Logger logger = Logger.getLogger(Constants.class); 
+	public static final Logger logger = Logger.getLogger(Constants.class); 
 	static {
 		System.out.println("log4j初始化");
 		URL fileURL=Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties"); 
