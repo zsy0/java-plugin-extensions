@@ -37,7 +37,7 @@ public final class Constants {
 	
 	public static Logger logger = Logger.getLogger(Constants.class); 
 	static {
-		URL fileURL=this.getClass().getResource("src/main/resource/log4j.properties"); 
+		URL fileURL=this.getClass().getClassLoader().getResource("src/main/resource/log4j.properties"); 
 		PropertyConfigurator.configure(fileURL.getFile());
 		
 	}

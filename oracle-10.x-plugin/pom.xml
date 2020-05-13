@@ -29,7 +29,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ojdbc14.version>10.2.0.4.0</ojdbc14.version>
-		<log4j.version>1.7.25</log4j.version>
+		<log4j.version>2.13.2</log4j.version>
 	</properties>
 
 	<dependencies>
@@ -48,7 +48,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j</artifactId>
+			<artifactId>log4j-core</artifactId>
 			<version>${log4j.version}</version>
 			<scope>provided</scope>
 		</dependency>
