@@ -44,13 +44,6 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ConnectionInfo connectInfo = cacheObject.getConnectionInfo();
 
-			System.out.println("在这在这");
-			System.out.println(cacheObject == null);
-			if (cacheObject != null) {
-				System.out.println(cacheObject.getConnectionInfo() == null);
-			}
-
-			
 			AbstractSpan span = ContextManager.createExitSpan(
 					buildOperationName(connectInfo, method.getName(), cacheObject.getStatementName()),
 					connectInfo.getDatabasePeer());
