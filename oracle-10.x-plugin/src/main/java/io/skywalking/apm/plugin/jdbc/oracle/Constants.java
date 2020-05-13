@@ -42,6 +42,7 @@ public final class Constants {
 		try {
 			System.out.println("log4j初始化");
 			URL fileURL = Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties");
+			System.out.println(fileURL == null);
 			PropertyConfigurator.configure(fileURL.getFile());
 			System.out.println("初始化完毕");
 		} catch (Exception e) {
