@@ -29,7 +29,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ojdbc14.version>10.2.0.4.0</ojdbc14.version>
-		<log4j.version>2.13.2</log4j.version>
+		<log4j.version>1.2.17</log4j.version>
 	</properties>
 
 	<dependencies>
@@ -47,8 +47,8 @@
 			<systemPath>/home/zsy/skywalking/apache-skywalking-apm-bin/agent/plugins/apm-jdbc-commons-7.0.0.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 			<scope>provided</scope>
 		</dependency>

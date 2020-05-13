@@ -21,6 +21,7 @@ import java.net.URL;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
 /**
  * Constants variables
  *
@@ -37,7 +38,7 @@ public final class Constants {
 	
 	public static Logger logger = Logger.getLogger(Constants.class); 
 	static {
-		URL fileURL=this.getClass().getClassLoader().getResource("src/main/resource/log4j.properties"); 
+		URL fileURL=Constants.class.getClassLoader().getResource("src/main/resource/log4j.properties"); 
 		PropertyConfigurator.configure(fileURL.getFile());
 		
 	}
