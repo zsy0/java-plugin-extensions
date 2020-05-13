@@ -34,7 +34,8 @@ public class ConnectionMethodInterceptor implements InstanceMethodsAroundInterce
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		ConnectionInfo connectInfo = (ConnectionInfo) objInst.getSkyWalkingDynamicField();
-		if (connectInfo != null && allArguments.length == 0 && objInst instanceof ConnectionInstrumentation.T4C_CONNECTION_CLASS) {
+		System.out.println(objInst.getClass().getName());
+		if (connectInfo != null && allArguments.length == 0 ) {
 //			Exception e = new Exception();
 //			e.printStackTrace();
 			ContextManager.stopSpan();
