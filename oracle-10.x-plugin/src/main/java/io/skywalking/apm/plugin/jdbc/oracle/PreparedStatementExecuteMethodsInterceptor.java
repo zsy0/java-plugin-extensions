@@ -60,6 +60,12 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
 
+		System.out.println("在这在这");
+		System.out.println(cacheObject == null);
+		if (cacheObject != null) {
+			System.out.println(cacheObject.getConnectionInfo() == null);
+		}
+
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			try {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
