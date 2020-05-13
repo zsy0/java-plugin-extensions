@@ -44,6 +44,13 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			ConnectionInfo connectInfo = cacheObject.getConnectionInfo();
 
+			System.out.println("在这在这");
+			System.out.println(cacheObject == null);
+			if (cacheObject != null) {
+				System.out.println(cacheObject.getConnectionInfo() == null);
+			}
+
+			
 			AbstractSpan span = ContextManager.createExitSpan(
 					buildOperationName(connectInfo, method.getName(), cacheObject.getStatementName()),
 					connectInfo.getDatabasePeer());
@@ -59,12 +66,6 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 	public final Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
 			Class<?>[] argumentsTypes, Object ret) throws Throwable {
 		StatementEnhanceInfos cacheObject = (StatementEnhanceInfos) objInst.getSkyWalkingDynamicField();
-
-		System.out.println("在这在这");
-		System.out.println(cacheObject == null);
-		if (cacheObject != null) {
-			System.out.println(cacheObject.getConnectionInfo() == null);
-		}
 
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			try {
