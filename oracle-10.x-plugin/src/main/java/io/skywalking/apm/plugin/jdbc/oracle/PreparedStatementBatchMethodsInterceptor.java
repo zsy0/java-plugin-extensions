@@ -21,19 +21,28 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			try {
 				if(method.getName().equals("addBatch")) {
-					cacheObject.addParaBatch();
-				}else if(method.getName().equals("executeBatch")) {
+					
 					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
 							+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql().replace('\n', ' ').replace('\r', ' ')
 							+ "]";
-					List<Object> allParameters = cacheObject.getAllParameters();
-					List<Integer> allMaxIndexes = cacheObject.getAllMaxIndexes();
-					for(int i=0;i<allParameters.size();++i) {
-						String para = new PreparedStatementParameterBuilder().setParameters((Object[]) allParameters.get(i))
-								.setMaxIndex(allMaxIndexes.get(i)).build();
-						s += "[para=" + para + "]";
-					}
+					String para = new PreparedStatementParameterBuilder().setParameters(cacheObject.getParameters())
+							.setMaxIndex(cacheObject.getMaxIndex()).build();
+					s += "[batchpara=" + para + "]";
 					Constants.logger.info(s);
+					
+					cacheObject.addParaBatch();
+				}else if(method.getName().equals("executeBatch")) {
+//					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
+//							+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql().replace('\n', ' ').replace('\r', ' ')
+//							+ "]";
+//					List<Object> allParameters = cacheObject.getAllParameters();
+//					List<Integer> allMaxIndexes = cacheObject.getAllMaxIndexes();
+//					for(int i=0;i<allParameters.size();++i) {
+//						String para = new PreparedStatementParameterBuilder().setParameters((Object[]) allParameters.get(i))
+//								.setMaxIndex(allMaxIndexes.get(i)).build();
+//						s += "[para=" + para + "]";
+//					}
+//					Constants.logger.info(s);
 					cacheObject.resetBatch();
 					
 				}
