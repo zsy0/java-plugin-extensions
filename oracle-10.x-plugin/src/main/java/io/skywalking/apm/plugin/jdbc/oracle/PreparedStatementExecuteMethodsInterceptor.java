@@ -63,7 +63,7 @@ public class PreparedStatementExecuteMethodsInterceptor implements InstanceMetho
 		if (cacheObject != null && cacheObject.getConnectionInfo() != null) {
 			try {
 				String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-						+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql()
+						+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql().replace('\n', ' ').replace('\r', ' ')
 						+ "]";
 				String para = new PreparedStatementParameterBuilder().setParameters(cacheObject.getParameters())
 						.setMaxIndex(cacheObject.getMaxIndex()).build();

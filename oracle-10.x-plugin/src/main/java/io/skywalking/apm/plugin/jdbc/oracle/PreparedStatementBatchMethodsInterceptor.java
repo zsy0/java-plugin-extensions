@@ -24,7 +24,7 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 					cacheObject.addParaBatch();
 				}else if(method.getName().equals("executeBatch")) {
 					String s = "[timestamp=" + System.currentTimeMillis() + "]" + "[connId="
-							+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql()
+							+ cacheObject.getConnectionInfo().getConnId() + "]" + "[sql=" + cacheObject.getSql().replace('\n', ' ').replace('\r', ' ')
 							+ "]";
 					List<Object> allParameters = cacheObject.getAllParameters();
 					List<Integer> allMaxIndexes = cacheObject.getAllMaxIndexes();
