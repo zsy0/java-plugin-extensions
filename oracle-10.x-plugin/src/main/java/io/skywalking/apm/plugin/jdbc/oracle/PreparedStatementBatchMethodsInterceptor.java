@@ -34,6 +34,7 @@ public class PreparedStatementBatchMethodsInterceptor implements InstanceMethods
 						s += "[para=" + para + "]";
 					}
 					Constants.logger.info(s);
+					cacheObject.resetBatch();
 					
 				}
 				
